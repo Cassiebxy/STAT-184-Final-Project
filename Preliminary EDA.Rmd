@@ -1,0 +1,72 @@
+---
+title: "Preliminary EDA"
+Authors: Kaitlyn Klumb, Xinyi Bao, Samuel Quinn
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+  html_notebook: default
+---
+The primary dataset can be downloaded from the link, which is [here](https://github.com/Cassiebxy/STAT-184-Final-Project/tree/main)  
+
+
+```{r}
+# Loading data
+GlobalYouTube <- read.csv("/Users/cathybao/Desktop/GlobalYouTube.csv", header = TRUE)
+
+library(ggplot2)
+library(DataComputing)
+library(Lock5Data)
+
+data("GlobalInternet2019")
+```
+
+
+**Guiding Question:** In 2019 where are Youtuber channels most popular in the world, and does their internet speed play a role?     
+
+
+Where did we find the Data? *Kaggle*    
+Who collected the data? *Nidula Elgiriyewithana*    
+When and why? *It was updated 3 months ago, August 2023. It was collected to analyze and gain valuable insight from the platform.*   
+What does a case represent and How many are there? *A case is one Youtube channel, and there are 995 cases.*    
+What variables to do you plan to use? *Youtuber, Subscribers, Video Views, Longititude, Latitude, Created_year, and Country.*     
+
+
+
+```{r}
+head(GlobalYouTube)
+head(GlobalInternet2019)
+```
+
+```{r}
+library(dplyr)
+
+colnames(GlobalYouTube)
+
+GlobalYouTube %>%
+  filter(created_year == 2019) %>%
+  ggplot(aes(x = Country, y = subscribers)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Number of Subscribers of YouTube Channels Created in 2019 by Country", x = "Country", y = "Subscribers") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+GlobalInternet2019 %>%
+  ggplot(aes(x = Country, y = InternetSpeed)) +
+  geom_line(group = 1) +
+  labs(title = "Internet Speed by Country in 2019", x = "Country", y = "Speed (Mbps)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
+Based off the initial ranking of the data, it seems that the United States and India are home to the most popular Youtube Channels. 
+
+The top countries for internet speed are Switzerland, United States and Germany. 
+
+So based off of initial viewing of the data it appears that the United States will likely be one of the top places for popular Youtubers, and high internet speed. 
+
+
