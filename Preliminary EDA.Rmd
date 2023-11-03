@@ -63,10 +63,11 @@ GlobalInternet2019 %>%
 ```
 
 
-Based off the initial ranking of the data, it seems that the United States and India are home to the most popular Youtube Channels. 
+Based off the initial ranking of the data, it seems that the United States and Nan are home to the most popular Youtube Channels by subscriber count. 
 
-The top countries for internet speed are Switzerland, United States and Germany. 
+The top countries for internet speed are Switzerland, France and Spain.  
 
-So based off of initial viewing of the data it appears that the United States will likely be one of the top places for popular Youtubers, and high internet speed. 
+So based off of initial viewing of the data it appears that the overlap in data will involved the United States for having a relatively fast internet speed and the overwhelming popularity of Youtube Channels by subsriber counts in 2019.
+ 
 
 
