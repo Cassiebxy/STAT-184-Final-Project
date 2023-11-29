@@ -1,0 +1,21 @@
+---
+title: "STAT 184 Final Project"
+Authors: Kaitlyn Klumb, Xinyi Bao, Samuel Quinn
+output:
+  html_document:
+  df_print: paged
+  pdf_document: default
+  html_notebook: default
+date: "`r Sys.Date()`"
+---
+
+***Background Information:***   
+This dataset offers a perfect avenue to analyze and gain valuable insights from the luminaries of the platform, including comprehensive details on top creators' subscriber counts, video views, upload frequency, country of origin, earnings, and more.   
+
+The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewithana/global-youtube-statistics-2023)
+
+***Data Wrangling:***
+
+***Linear Regression:***
+
+***Data Visualization:***
