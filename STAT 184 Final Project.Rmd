@@ -14,6 +14,21 @@ This dataset offers a perfect avenue to analyze and gain valuable insights from 
 
 The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewithana/global-youtube-statistics-2023)
 
+***Data Access:***
+```{r}
+# Loading primary data
+GlobalYouTube <- read.csv("https://raw.githubusercontent.com/Cassiebxy/STAT-184-Final-Project/main/Global%20YouTube%20Statistics.csv")
+
+library(ggplot2)
+library(DataComputing)
+
+# Secondary Data
+library(Lock5Data)
+
+head(GlobalYouTube)
+head(GlobalInternet2019)
+```
+
 ***Data Wrangling:***
 
 ***Linear Regression:***
