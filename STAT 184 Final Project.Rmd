@@ -39,6 +39,7 @@ head(GlobalInternet2019)
 **Data Wrangling:**
 
 ```{r}
+#ranking the popularity of countries, based on the amount of views they recieve. The highest number is the most popular. 
 popular<- 
   GlobalYouTube %>%
   group_by(Country) %>%
@@ -47,6 +48,7 @@ popular<-
   arrange(desc(the_rank))
 popular
 
+# ranking the internet speed of countries, the highest number is the highest speed. 
 internetspeed <-
   GlobalInternet2019 %>%
   group_by(Country) %>%
@@ -58,6 +60,7 @@ internetspeed
   
 ```
 ```{r}
+# joining the data tables by the country's video views and internet speed 
 countryspeeds <- 
   GlobalInternet2019 %>%
   select(Country, InternetSpeed) %>% 
