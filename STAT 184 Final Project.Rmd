@@ -172,29 +172,10 @@ filtered_channels %>%
 ```
 
 ```{r}
-GlobalYouTube %>%
-  ggplot(aes(x = Country, y = subscribers)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Number of Subscribers of YouTube Channels by Country", x = "Country", y = "Subscribers") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
-
-GlobalInternet2019 %>%
-  ggplot(aes(x = Country, y = InternetSpeed)) +
-  geom_line(group = 1) +
-  labs(title = "Internet Speed by Country in 2019", x = "Country", y = "Speed (Mbps)") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
 countryspeeds %>%
   ggplot(aes(x = InternetSpeed, y = video.views))+
   geom_point()+
   aes(colour= Country)
-
-
-
 ```
 
 
