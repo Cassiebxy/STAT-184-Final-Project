@@ -21,6 +21,9 @@ GlobalYouTube <- read.csv("https://raw.githubusercontent.com/Cassiebxy/STAT-184-
 
 library(ggplot2)
 library(DataComputing)
+library(tidyverse)
+library(esquisse)
+library(mosaic)
 
 # Secondary Data
 library(Lock5Data)
@@ -30,7 +33,28 @@ head(GlobalInternet2019)
 ```
 
 ***Data Wrangling:***
+# Wrangling, E
+data("GlobalInternet2019")
+GlobalInternet2019$InternetSpeed1 <- round(GlobalInternet2019$InternetSpeed)
+GlobalInternet2019 <- 
+  GlobalInternet2019 %>%
+  select(Country, InternetSpeed1, HoursOnline) %>%
+  rename(InternetSpeed = InternetSpeed1)
+GlobalInternet2019
+
+# Wrangling, C
+narrow_table <-
+  GlobalYouTube %>%
+  #mutate(popularity = video.views + subscribers) %>%
+  pivot_longer(
+    cols = c(`subscribers`, `video.views`),  #names of columns we want to become a new variable 
+    names_to = "popularity.category",         #what you want to call the new column of the data in the line above
+    values_to = "popularity"    #what you want to call the variable that stores the values
+  )
+narrow_table
 
 ***Linear Regression:***
 
 ***Data Visualization:***
+# Visualizations, A
+mWorldMap(GlobalInternet2019, key="Country", fill="InternetSpeed")
