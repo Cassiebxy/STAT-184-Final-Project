@@ -57,8 +57,8 @@ internetspeed <-
   arrange(desc(rank))
 internetspeed
 
-  
 ```
+
 ```{r}
 # joining the data tables by the country's video views and internet speed 
 countryspeeds <- 
@@ -90,6 +90,29 @@ narrow_table <-
     values_to = "popularity"    #what you want to call the variable that stores the values
   )
 narrow_table
+```
+
+**Data EDA:**
+
+EDA for the primary dataset:
+```{r}
+GlobalYouTube %>%
+  ggplot(aes(x = Country, y = subscribers)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Number of Subscribers of YouTube Channels by Country", x = "Country", y = "Subscribers") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+EDA for the secondary dataset:
+```{r}
+GlobalInternet2019 %>%
+  ggplot(aes(x = Country, y = InternetSpeed)) +
+  geom_line(group = 1) +
+  labs(title = "Internet Speed by Country in 2019", x = "Country", y = "Speed (Mbps)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 ```
 
 **Machine Learning**
@@ -125,8 +148,6 @@ channels_above_average %>%
   labs(title = "Clustering of YouTube Channels with Above Average Subscribers (2010-2023)")
 ```
 
-**Linear Regression:**
-
 **Data Visualization:**
 ```{r}
 # Visualizations, A
@@ -152,10 +173,9 @@ filtered_channels %>%
 
 ```{r}
 GlobalYouTube %>%
-  filter(created_year == 2019) %>%
   ggplot(aes(x = Country, y = subscribers)) +
   geom_bar(stat = "identity") +
-  labs(title = "Number of Subscribers of YouTube Channels Created in 2019 by Country", x = "Country", y = "Subscribers") +
+  labs(title = "Number of Subscribers of YouTube Channels by Country", x = "Country", y = "Subscribers") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
@@ -246,3 +266,5 @@ ggplot() +
   theme(legend.position = "none")
 
 ```
+
+**Linear Regression:**
