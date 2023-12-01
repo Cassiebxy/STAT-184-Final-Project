@@ -36,7 +36,7 @@ head(GlobalYouTube)
 head(GlobalInternet2019)
 ```
 
-***Data Wrangling:***
+**Data Wrangling:**
 
 ```{r}
 # Wrangling, E
