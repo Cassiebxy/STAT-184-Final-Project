@@ -36,8 +36,9 @@ head(GlobalYouTube)
 head(GlobalInternet2019)
 ```
 
-```{r}
 ***Data Wrangling:***
+
+```{r}
 # Wrangling, E
 data("GlobalInternet2019")
 GlobalInternet2019$InternetSpeed1 <- round(GlobalInternet2019$InternetSpeed)
@@ -90,6 +91,14 @@ channels_above_average %>%
   geom_point(aes(color = cluster, shape = cluster)) +
   theme(legend.position = "top") +
   labs(title = "Clustering of YouTube Channels with Above Average Subscribers (2010-2023)")
+```
+
+**Linear Regression:**
+
+**Data Visualization:**
+```{r}
+# Visualizations, A
+mWorldMap(GlobalInternet2019, key="Country", fill="InternetSpeed")
 ```
 
 Visualize YouTube channels created between 2010 and 2023 based on their latitude and longitude
@@ -176,12 +185,4 @@ ggplot() +
   labs(title = "World Map with Top 5 Countries by Internet Speed and YouTube Channels (2010-2023)") +
   theme(legend.position = "none")
 
-```
-
-**Linear Regression:**
-
-**Data Visualization:**
-```{r}
-# Visualizations, A
-mWorldMap(GlobalInternet2019, key="Country", fill="InternetSpeed")
 ```
