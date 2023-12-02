@@ -147,6 +147,41 @@ channels_above_average %>%
   theme(legend.position = "top") +
   labs(title = "Clustering of YouTube Channels with Above Average Subscribers (2010-2023)")
 ```
+```{r}
+if (!require("sf")) install.packages("sf")
+if (!require("lwgeom")) install.packages("lwgeom")
+library(sf)
+library(lwgeom)
+
+world_map <- ne_countries(scale = "medium", returnclass = "sf")
+
+GlobalInternet2019$InternetSpeedRank <- rank(-GlobalInternet2019$InternetSpeed, ties.method = "first")
+Top5InternetSpeed <- GlobalInternet2019 %>%
+  filter(InternetSpeedRank <= 5)
+
+world_with_speed <- world_map %>%
+  left_join(Top5InternetSpeed, by = c("name_long" = "Country"))
+
+GlobalYouTube <- GlobalYouTube %>%
+  filter(!is.na(Longitude) & !is.na(Latitude))
+
+GlobalYouTube_sf <- st_as_sf(GlobalYouTube, coords = c("Longitude", "Latitude"), 
+                             crs = st_crs(world_map))
+
+
+world_with_speed <- world_with_speed %>% 
+  mutate(geometry = st_make_valid(geometry))
+
+channels_in_top_countries <- st_join(GlobalYouTube_sf, world_with_speed, join = st_within)
+
+top_countries_with_channels <- channels_in_top_countries %>% 
+  filter(!is.na(InternetSpeedRank)) %>% 
+  distinct(name_long) %>% 
+  pull(name_long)
+
+top_countries_with_channels
+
+```
 
 **Data Visualization:**
 ```{r}
@@ -245,40 +280,6 @@ ggplot() +
   theme_minimal() +
   labs(title = "World Map with Top 5 Countries by Internet Speed and YouTube Channels (2010-2023)") +
   theme(legend.position = "none")
-
-```
-
-```{r}
-library(sf)
-library(lwgeom)
-
-world_map <- ne_countries(scale = "medium", returnclass = "sf")
-
-GlobalInternet2019$InternetSpeedRank <- rank(-GlobalInternet2019$InternetSpeed, ties.method = "first")
-Top5InternetSpeed <- GlobalInternet2019 %>%
-  filter(InternetSpeedRank <= 5)
-
-world_with_speed <- world_map %>%
-  left_join(Top5InternetSpeed, by = c("name_long" = "Country"))
-
-GlobalYouTube <- GlobalYouTube %>%
-  filter(!is.na(Longitude) & !is.na(Latitude))
-
-GlobalYouTube_sf <- st_as_sf(GlobalYouTube, coords = c("Longitude", "Latitude"), 
-                             crs = st_crs(world_map))
-
-
-world_with_speed <- world_with_speed %>% 
-  mutate(geometry = st_make_valid(geometry))
-
-channels_in_top_countries <- st_join(GlobalYouTube_sf, world_with_speed, join = st_within)
-
-top_countries_with_channels <- channels_in_top_countries %>% 
-  filter(!is.na(InternetSpeedRank)) %>% 
-  distinct(name_long) %>% 
-  pull(name_long)
-
-top_countries_with_channels
 
 ```
 
