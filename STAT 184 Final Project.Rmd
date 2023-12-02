@@ -135,7 +135,7 @@ channels_above_average <- YouTubeChannels2010_2023 %>%
 
 # Perform k-means clustering on the channels above the average
 set.seed(123) 
-clusters <- kmeans(ChannelsAboveAverage[, c('Longitude', 'Latitude')], centers = 6)
+clusters <- kmeans(channels_above_average[, c('Longitude', 'Latitude')], centers = 6)
 
 # Add the cluster information to the dataframe
 channels_above_average$cluster <- as.factor(clusters$cluster)
@@ -215,7 +215,7 @@ Top5InternetSpeed <- GlobalInternet2019 %>%
 Top5InternetSpeed
 
 # Merge the world data with the Top5InternetSpeed data
-world_with_speed <- merge(world, Top5InternetSpeed, by.x = "name_long", by.y = "Country", all.x = TRUE)
+world_with_speed <- merge(world_map, Top5InternetSpeed, by.x = "name_long", by.y = "Country", all.x = TRUE)
 
 # Plot 
 ggplot(data = world_with_speed) +
@@ -250,12 +250,12 @@ ggplot() +
 
 ```{r}
 youtube_data_grouped <- GlobalYouTube %>%
-  group_by(V8) %>%
+  group_by(Country) %>%
   summarize(Channel_Count = n(),
-            Average_Subscribers = mean(V3, na.rm = TRUE))
+            Average_Subscribers = mean(subscribers, na.rm = TRUE))
 
 youtube_data_grouped %>%
-  ggplot(aes(x=reorder(V8, Channel_Count), y=Channel_Count)) +
+  ggplot(aes(x=reorder(Country, Channel_Count), y=Channel_Count)) +
   geom_col(fill="navy") + 
   geom_col(aes(y=Average_Subscribers/1000000), fill="#DC143C") +
   theme_minimal() +
@@ -283,8 +283,8 @@ summary(model)
 
 **Analysis:**   
 
-The p-value for the Internet speed coefficient is 0.14, which is above common levels of significance, indicating that the effect of Internet speed on the number of YouTube subscribers is not statistically significant.
+The p-value for the Internet speed coefficient is 0.136, which is above common levels of significance, indicating that the effect of Internet speed on the number of YouTube subscribers is not statistically significant.
 
-R-squared = 0.004728. This indicates that the Internet speed in the model explains a very low proportion (less than 0.5%) of the variation in the number of YouTube subscribers. In other words, the variation in the number of YouTube subscribers can hardly be explained by Internet speed.
+R-squared = 0.004814. This indicates that the Internet speed in the model explains a very low proportion (less than 0.5%) of the variation in the number of YouTube subscribers. In other words, the variation in the number of YouTube subscribers can hardly be explained by Internet speed.
 
 Based on the results of this model, we can conclude that, there is no significant linear relationship between Internet speed and the number of YouTube subscribers. This may be due to the fact that subscriber numbers are influenced by a variety of factors that are not included in the current model.
