@@ -10,6 +10,7 @@ date: "`r Sys.Date()`"
 ---
 
 **Background Information:**  
+
 The primary dataset offers an avenue to analyze and gain valuable insights from the luminaries of the platform, including comprehensive details on top creators' subscriber counts, video views, upload frequency, country of origin, earnings, and more.   
 The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewithana/global-youtube-statistics-2023)
 
@@ -92,6 +93,7 @@ narrow_table <-
 
 narrow_table
 ```
+<br>
 
 **Data EDA:**
 
@@ -117,7 +119,7 @@ GlobalInternet2019 %>%
 ```
 
 
-**Machine Learning**
+**Machine Learning:**
 
 The clustering and visualization of YouTube channels created between 2010 and 2023 with subscribers above the average value
 ```{r}
