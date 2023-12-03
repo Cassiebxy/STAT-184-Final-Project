@@ -2,20 +2,160 @@
 title: "STAT 184 Final Project"
 Authors: Kaitlyn Klumb, Xinyi Bao, Samuel Quinn
 output:
-  html_document:
+  html_notebook: default
   df_print: paged
   pdf_document: default
-  html_notebook: default
+  html_document:
 date: "`r Sys.Date()`"
 ---
 
-***Background Information:***   
-This dataset offers a perfect avenue to analyze and gain valuable insights from the luminaries of the platform, including comprehensive details on top creators' subscriber counts, video views, upload frequency, country of origin, earnings, and more.   
-
+**Background Information:**  
+The primary dataset offers an avenue to analyze and gain valuable insights from the luminaries of the platform, including comprehensive details on top creators' subscriber counts, video views, upload frequency, country of origin, earnings, and more.   
 The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewithana/global-youtube-statistics-2023)
 
-***Data Wrangling:***
+***Research Question:*** where are Youtuber channels most popular in the world, and does their internet speed play a role? 
 
-***Linear Regression:***
+<br>
 
-***Data Visualization:***
+**Data Access:**
+```{r}
+# Loading primary data
+GlobalYouTube <- read.csv("https://raw.githubusercontent.com/Cassiebxy/STAT-184-Final-Project/main/Global%20YouTube%20Statistics.csv")
+
+library(ggplot2)
+library(DataComputing)
+
+# Secondary Data
+library(Lock5Data)
+
+head(GlobalYouTube)
+head(GlobalInternet2019)
+```
+<br>
+
+
+**Machine Learning**
+
+The clustering and visualization of YouTube channels created between 2010 and 2023 with subscribers above the average value
+```{r}
+library(dplyr)
+
+# Filter for channels created between 2010 and 2023
+YouTubeChannels2010_2023 <- GlobalYouTube %>%
+  filter(created_year >= 2010 & created_year <= 2023) %>%
+  filter(!is.na(subscribers) & !is.na(Latitude) & !is.na(Longitude))
+
+# Calculate the average number of subscribers for the filtered channels
+average_subscribers <- mean(YouTubeChannels2010_2023$subscribers)
+
+# Filter out channels with subscribers above the average
+channels_above_average <- YouTubeChannels2010_2023 %>%
+  filter(subscribers > average_subscribers)
+
+# Perform k-means clustering on the channels above the average
+set.seed(123) 
+clusters <- kmeans(ChannelsAboveAverage[, c('Longitude', 'Latitude')], centers = 6)
+
+# Add the cluster information to the dataframe
+channels_above_average$cluster <- as.factor(clusters$cluster)
+
+# Visualize the clusters
+channels_above_average %>%
+  ggplot(aes(x = Longitude, y = Latitude)) +
+  geom_point(aes(color = cluster, shape = cluster)) +
+  theme(legend.position = "top") +
+  labs(title = "Clustering of YouTube Channels with Above Average Subscribers (2010-2023)")
+
+```
+
+Visualize YouTube channels created between 2010 and 2023 based on their latitude and longitude
+```{r}
+filtered_channels <- GlobalYouTube %>%
+  filter(created_year >= 2010, created_year <= 2023) %>%
+  filter(!is.na(Latitude), !is.na(Longitude))
+
+# Plotting
+filtered_channels %>%
+  ggplot(aes(x = Longitude, y = Latitude)) +
+  geom_point(color = "blue", alpha = 0.5) +
+  theme_minimal() +
+  labs(title = "Geographical Distribution of YouTube Channels (2010-2023)",
+       x = "Longitude",
+       y = "Latitude")
+
+```
+
+World Map:
+
+```{r}
+# Install required packages if not already installed
+if (!require("rnaturalearth")) install.packages("rnaturalearth")
+if (!require("rnaturalearthdata")) install.packages("rnaturalearthdata")
+
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+world_map <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Plot the world map
+world_map %>%
+  ggplot() +
+  geom_sf() +
+  theme_minimal() +
+  labs(title = "World Map") +
+  theme(legend.position = "none")  
+
+```
+
+Overlay the top 5 countries with the fastest internet speeds from the GlobalInternet2019 dataset onto your world map
+
+```{r}
+# Sort by internet speed and create a rank column
+GlobalInternet2019$InternetSpeedRank <- rank(-GlobalInternet2019$InternetSpeed, ties.method = "first")
+
+# Identifying the top 5 countries
+Top5InternetSpeed <- GlobalInternet2019 %>%
+  arrange(desc(InternetSpeed)) %>%
+  head(5)
+
+Top5InternetSpeed
+
+# Merge the world data with the Top5InternetSpeed data
+world_with_speed <- merge(world, Top5InternetSpeed, by.x = "name_long", by.y = "Country", all.x = TRUE)
+
+# Plot 
+ggplot(data = world_with_speed) +
+  geom_sf(aes(fill = factor(InternetSpeedRank))) + 
+  scale_fill_manual(values = c("gray", "blue4", "blue3", "blue2", "blue1", "lightblue"),
+                    na.value = "gray", guide = "none") +
+  theme_minimal() +
+  labs(title = "World Map with Top 5 Countries by Internet Speed") +
+  theme(legend.position = "none")
+
+```
+
+Combine the visualization of the top 5 countries with the fastest internet speeds with the locations of YouTube channels created between 2010 and 2023
+```{r}
+
+# Filter for channels created between 2010 and 2023 and with valid coordinates
+YouTubeChannels2010_2023 <- subset(GlobalYouTube, created_year >= 2010 & created_year <= 2023 &
+                                   !is.na(Longitude) & !is.na(Latitude))
+
+# Plot the world map with the top 5 countries highlighted and YouTube channel locations
+ggplot() +
+  geom_sf(data = world_with_speed, aes(fill = factor(InternetSpeedRank)), color = NA) +
+  scale_fill_manual(values = c("gray", "blue4", "blue3", "blue2", "blue1", "lightblue"),
+                    na.value = "gray", guide = "none") +
+  geom_point(data = YouTubeChannels2010_2023, aes(x = Longitude, y = Latitude), 
+             color = "red", size = 1, alpha = 0.5) +
+  theme_minimal() +
+  labs(title = "World Map with Top 5 Countries by Internet Speed and YouTube Channels (2010-2023)") +
+  theme(legend.position = "none")
+
+```
+
+
+
+**Linear Regression:**
+
+**Data Visualization:**
