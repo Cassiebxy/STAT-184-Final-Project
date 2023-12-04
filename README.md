@@ -49,11 +49,12 @@ Joining the data tables by the country's video views and internet speed
 
 
 
-# Wrangling, E
+Wrangling, E
 ![Wangling Global Internet 2019](/6.png)
 
-# Wrangling, C
+Wrangling, C
 ![Narrow Table](/7.png)
+
 
 **Data EDA:**
 
@@ -88,7 +89,7 @@ Visualize Country Speed
 ![Country Speed](/13.png)
 
 
-***Key Visualization:***
+**Key Visualization:**
 
 World Map:
 
