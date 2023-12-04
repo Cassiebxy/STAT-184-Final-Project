@@ -59,8 +59,8 @@ internetspeed <-
 internetspeed
 
 ```
-![Rank the popularity of countries](/3.png)
-![Rank the internet speed of countries](/4.png)
+
+
 
 ```{r}
 # joining the data tables by the country's video views and internet speed 
@@ -72,7 +72,8 @@ countryspeeds <-
 countryspeeds
 
 ```
-![join the countries' video views and internet speed](/5.png)
+
+
 
 ```{r}
 # Wrangling, E
@@ -96,8 +97,8 @@ narrow_table <-
 
 narrow_table
 ```
-![Wangling Global Internet 2019](/6.png)
-![Narrow Table](/7.png)
+
+
 
 **Data EDA:**
 
@@ -110,7 +111,8 @@ GlobalYouTube %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-![EDA for 1st dataset](/8.png)
+
+
 
 EDA for the secondary dataset:
 ```{r}
@@ -122,7 +124,9 @@ GlobalInternet2019 %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-![EDA for 2nd dataset](/9.png)
+
+
+
 
 
 **Machine Learning**
@@ -157,14 +161,18 @@ channels_above_average %>%
   theme(legend.position = "top") +
   labs(title = "Clustering of YouTube Channels with Above Average Subscribers (2010-2023)")
 ```
-![Clustering](/10.png)
+
+
+
 
 **Data Visualization:**
 ```{r}
 # Visualizations, A
 mWorldMap(GlobalInternet2019, key="Country", fill="InternetSpeed")
 ```
-![Colered World Map](/11.png)
+
+
+
 
 Visualize YouTube channels created between 2010 and 2023 based on their latitude and longitude
 ```{r}
@@ -182,7 +190,9 @@ filtered_channels %>%
        y = "Latitude")
 
 ```
-![Geographical Distribution between 2010 and 2023](/12.png)
+
+
+
 
 ```{r}
 countryspeeds %>%
@@ -190,7 +200,9 @@ countryspeeds %>%
   geom_point()+
   aes(colour= Country)
 ```
-![Country Speed](/13.png)
+
+
+
 
 World Map:
 
@@ -240,7 +252,10 @@ ggplot(data = world_with_speed) +
   theme(legend.position = "none")
 
 ```
-![World Map with Top 5 Internet Speed](/14.png)
+
+
+
+
 
 Combine the visualization of the top 5 countries with the fastest internet speeds with the locations of YouTube channels created between 2010 and 2023
 ```{r}
@@ -261,7 +276,9 @@ ggplot() +
   theme(legend.position = "none")
 
 ```
-![World Map with Top 5 Internet Speed and Youtubers](/15.png)
+
+
+
 
 ```{r}
 if (!require("sf")) install.packages("sf")
@@ -316,7 +333,9 @@ youtube_data_grouped %>%
   coord_flip() 
 
 ```
-![Comparisons between Views and Subscribers](/16.png)
+
+
+
 
 **Linear Regression:**
 
@@ -333,7 +352,9 @@ model <- lm(subscribers ~ InternetSpeed, data = merged_data)
 summary(model)
 
 ```
-![Linear Regression Summary](/17.png)
+
+
+
 
 **Analysis:**   
 
