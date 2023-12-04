@@ -15,7 +15,11 @@ The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewi
 ***Research Question:*** where are Youtuber channels most popular in the world, and does their internet speed play a role? 
 
 ***Our Hypothesis:*** Internet speed may play a significant role in making the YouTube channels popular in the world.
-![image](https://github.com/Cassiebxy/STAT-184-Final-Project.github.io/assets/130732801/209903a1-0d85-4623-aace-eaf53cc85a70)
+
+***Challenge Encountered:***
+* Conflicts with GitHub Desktop to collaborate on the code 
+* We did our work on our local laptops, edited the main code on GitHub, and committed the changes. 
+* Increase our efficiency
 
 
 <br>
