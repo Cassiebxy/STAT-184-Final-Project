@@ -1,0 +1,328 @@
+# STAT-184-Final-Project.github.io
+---
+title: "STAT 184 Final Project"
+Authors: Kaitlyn Klumb, Xinyi Bao, Samuel Quinn
+output:
+  html_document:
+  df_print: paged
+  pdf_document: default
+  html_notebook: default
+date: "`r Sys.Date()`"
+---
+
+**Background Information:**  
+The primary dataset offers an avenue to analyze and gain valuable insights from the luminaries of the platform, including comprehensive details on top creators' subscriber counts, video views, upload frequency, country of origin, earnings, and more.   
+The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewithana/global-youtube-statistics-2023)
+
+***Research Question:*** where are Youtuber channels most popular in the world, and does their internet speed play a role? 
+
+<br>
+
+
+**Data Access:**
+```{r}
+# Loading primary data
+GlobalYouTube <- read.csv("https://raw.githubusercontent.com/Cassiebxy/STAT-184-Final-Project/main/Global%20YouTube%20Statistics.csv")
+
+library(ggplot2)
+library(DataComputing)
+library(tidyverse)
+library(esquisse)
+library(mosaic)
+
+# Secondary Data
+library(Lock5Data)
+
+head(GlobalYouTube)
+head(GlobalInternet2019)
+```
+
+**Data Wrangling:**
+
+```{r}
+#ranking the popularity of countries, based on the amount of views they recieve. The highest number is the most popular. 
+popular<- 
+  GlobalYouTube %>%
+  group_by(Country) %>%
+  summarise(views = sum(video.views)) %>%
+  mutate(the_rank = rank(views)) %>%
+  arrange(desc(the_rank))
+popular
+
+# ranking the internet speed of countries, the highest number is the highest speed. 
+internetspeed <-
+  GlobalInternet2019 %>%
+  group_by(Country) %>%
+  summarise(speed = sum(InternetSpeed)) %>%
+  mutate(rank = rank(speed)) %>%
+  arrange(desc(rank))
+internetspeed
+
+```
+
+```{r}
+# joining the data tables by the country's video views and internet speed 
+countryspeeds <- 
+  GlobalInternet2019 %>%
+  select(Country, InternetSpeed) %>% 
+  left_join(GlobalYouTube %>% select(Country, video.views, rank),
+            by = c("Country" = "Country")) 
+countryspeeds
+
+```
+
+```{r}
+# Wrangling, E
+data("GlobalInternet2019")
+GlobalInternet2019$InternetSpeed1 <- round(GlobalInternet2019$InternetSpeed)
+GlobalInternet2019 <- 
+  GlobalInternet2019 %>%
+  select(Country, InternetSpeed1, HoursOnline) %>%
+  rename(InternetSpeed = InternetSpeed1)
+GlobalInternet2019
+
+# Wrangling, C
+narrow_table <-
+  GlobalYouTube %>%
+  #mutate(popularity = video.views + subscribers) %>%
+  pivot_longer(
+    cols = c(`subscribers`, `video.views`),  #names of columns we want to become a new variable 
+    names_to = "popularity.category",         #what you want to call the new column of the data in the line above
+    values_to = "popularity"    #what you want to call the variable that stores the values
+  )
+
+narrow_table
+```
+
+**Data EDA:**
+
+EDA for the primary dataset:
+```{r}
+GlobalYouTube %>%
+  ggplot(aes(x = Country, y = subscribers)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Number of Subscribers of YouTube Channels by Country", x = "Country", y = "Subscribers") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+EDA for the secondary dataset:
+```{r}
+GlobalInternet2019 %>%
+  ggplot(aes(x = Country, y = InternetSpeed)) +
+  geom_line(group = 1) +
+  labs(title = "Internet Speed by Country in 2019", x = "Country", y = "Speed (Mbps)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+**Machine Learning**
+
+The clustering and visualization of YouTube channels created between 2010 and 2023 with subscribers above the average value
+```{r}
+library(dplyr)
+
+# Filter for channels created between 2010 and 2023
+YouTubeChannels2010_2023 <- GlobalYouTube %>%
+  filter(created_year >= 2010 & created_year <= 2023) %>%
+  filter(!is.na(subscribers) & !is.na(Latitude) & !is.na(Longitude))
+
+# Calculate the average number of subscribers for the filtered channels
+average_subscribers <- mean(YouTubeChannels2010_2023$subscribers)
+
+# Filter out channels with subscribers above the average
+channels_above_average <- YouTubeChannels2010_2023 %>%
+  filter(subscribers > average_subscribers)
+
+# Perform k-means clustering on the channels above the average
+set.seed(123) 
+clusters <- kmeans(channels_above_average[, c('Longitude', 'Latitude')], centers = 6)
+
+# Add the cluster information to the dataframe
+channels_above_average$cluster <- as.factor(clusters$cluster)
+
+# Visualize the clusters
+channels_above_average %>%
+  ggplot(aes(x = Longitude, y = Latitude)) +
+  geom_point(aes(color = cluster, shape = cluster)) +
+  theme(legend.position = "top") +
+  labs(title = "Clustering of YouTube Channels with Above Average Subscribers (2010-2023)")
+```
+
+**Data Visualization:**
+```{r}
+# Visualizations, A
+mWorldMap(GlobalInternet2019, key="Country", fill="InternetSpeed")
+```
+
+Visualize YouTube channels created between 2010 and 2023 based on their latitude and longitude
+```{r}
+filtered_channels <- GlobalYouTube %>%
+  filter(created_year >= 2010, created_year <= 2023) %>%
+  filter(!is.na(Latitude), !is.na(Longitude))
+
+# Plotting
+filtered_channels %>%
+  ggplot(aes(x = Longitude, y = Latitude)) +
+  geom_point(color = "blue", alpha = 0.5) +
+  theme_minimal() +
+  labs(title = "Geographical Distribution of YouTube Channels (2010-2023)",
+       x = "Longitude",
+       y = "Latitude")
+
+```
+
+```{r}
+countryspeeds %>%
+  ggplot(aes(x = InternetSpeed, y = video.views))+
+  geom_point()+
+  aes(colour= Country)
+```
+
+
+World Map:
+
+```{r}
+# Install required packages if not already installed
+if (!require("rnaturalearth")) install.packages("rnaturalearth")
+if (!require("rnaturalearthdata")) install.packages("rnaturalearthdata")
+
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+world_map <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Plot the world map
+world_map %>%
+  ggplot() +
+  geom_sf() +
+  theme_minimal() +
+  labs(title = "World Map") +
+  theme(legend.position = "none")  
+
+```
+
+Overlay the top 5 countries with the fastest internet speeds from the GlobalInternet2019 dataset onto your world map
+
+```{r}
+# Sort by internet speed and create a rank column
+GlobalInternet2019$InternetSpeedRank <- rank(-GlobalInternet2019$InternetSpeed, ties.method = "first")
+
+# Identifying the top 5 countries
+Top5InternetSpeed <- GlobalInternet2019 %>%
+  arrange(desc(InternetSpeed)) %>%
+  head(5)
+
+Top5InternetSpeed
+
+# Merge the world data with the Top5InternetSpeed data
+world_with_speed <- merge(world_map, Top5InternetSpeed, by.x = "name_long", by.y = "Country", all.x = TRUE)
+
+# Plot 
+ggplot(data = world_with_speed) +
+  geom_sf(aes(fill = factor(InternetSpeedRank))) + 
+  scale_fill_manual(values = c("gray", "blue4", "blue3", "blue2", "blue1", "lightblue"),
+                    na.value = "gray", guide = "none") +
+  theme_minimal() +
+  labs(title = "World Map with Top 5 Countries by Internet Speed") +
+  theme(legend.position = "none")
+
+```
+
+Combine the visualization of the top 5 countries with the fastest internet speeds with the locations of YouTube channels created between 2010 and 2023
+```{r}
+
+# Filter for channels created between 2010 and 2023 and with valid coordinates
+YouTubeChannels2010_2023 <- subset(GlobalYouTube, created_year >= 2010 & created_year <= 2023 &
+                                   !is.na(Longitude) & !is.na(Latitude))
+
+# Plot the world map with the top 5 countries highlighted and YouTube channel locations
+ggplot() +
+  geom_sf(data = world_with_speed, aes(fill = factor(InternetSpeedRank)), color = NA) +
+  scale_fill_manual(values = c("gray", "blue4", "blue3", "blue2", "blue1", "lightblue"),
+                    na.value = "gray", guide = "none") +
+  geom_point(data = YouTubeChannels2010_2023, aes(x = Longitude, y = Latitude), 
+             color = "red", size = 1, alpha = 0.5) +
+  theme_minimal() +
+  labs(title = "World Map with Top 5 Countries by Internet Speed and YouTube Channels (2010-2023)") +
+  theme(legend.position = "none")
+
+```
+
+```{r}
+if (!require("sf")) install.packages("sf")
+if (!require("lwgeom")) install.packages("lwgeom")
+library(sf)
+library(lwgeom)
+
+world_map <- ne_countries(scale = "medium", returnclass = "sf")
+
+GlobalInternet2019$InternetSpeedRank <- rank(-GlobalInternet2019$InternetSpeed, ties.method = "first")
+Top5InternetSpeed <- GlobalInternet2019 %>%
+  filter(InternetSpeedRank <= 5)
+
+world_with_speed <- world_map %>%
+  left_join(Top5InternetSpeed, by = c("name_long" = "Country"))
+
+GlobalYouTube <- GlobalYouTube %>%
+  filter(!is.na(Longitude) & !is.na(Latitude))
+
+GlobalYouTube_sf <- st_as_sf(GlobalYouTube, coords = c("Longitude", "Latitude"), 
+                             crs = st_crs(world_map))
+
+
+world_with_speed <- world_with_speed %>% 
+  mutate(geometry = st_make_valid(geometry))
+
+channels_in_top_countries <- st_join(GlobalYouTube_sf, world_with_speed, join = st_within)
+
+top_countries_with_channels <- channels_in_top_countries %>% 
+  filter(!is.na(InternetSpeedRank)) %>% 
+  distinct(name_long) %>% 
+  pull(name_long)
+
+top_countries_with_channels
+
+```
+
+```{r}
+youtube_data_grouped <- GlobalYouTube %>%
+  group_by(Country) %>%
+  summarize(Channel_Count = n(),
+            Average_Subscribers = mean(subscribers, na.rm = TRUE))
+
+youtube_data_grouped %>%
+  ggplot(aes(x=reorder(Country, Channel_Count), y=Channel_Count)) +
+  geom_col(fill="navy") + 
+  geom_col(aes(y=Average_Subscribers/1000000), fill="#DC143C") +
+  theme_minimal() +
+  labs(title="Comparison of YouTube Channel Count and Average Subscribers Per Country",
+       x="Country", y="Count / Average Subscribers (millions)") +
+  coord_flip() 
+
+```
+
+**Linear Regression:**
+
+To figure out the statistical relationship between the number of Global Youtubers' subscribers and the Global Internet Speed, we decided to make a linear regression model to explain.
+
+```{r}
+
+merged_data <- merge(GlobalYouTube, GlobalInternet2019, by = "Country")
+merged_data$sbscribers <- as.numeric(merged_data$subscribers)
+merged_data$InternetSpeed <- as.numeric(merged_data$InternetSpeed)
+
+model <- lm(subscribers ~ InternetSpeed, data = merged_data)
+
+summary(model)
+
+```
+
+**Analysis:**   
+
+The p-value for the Internet speed coefficient is 0.136, which is above common levels of significance, indicating that the effect of Internet speed on the number of YouTube subscribers is not statistically significant.
+
+R-squared = 0.004814. This indicates that the Internet speed in the model explains a very low proportion (less than 0.5%) of the variation in the number of YouTube subscribers. In other words, the variation in the number of YouTube subscribers can hardly be explained by Internet speed.
+
+Based on the results of this model, we can conclude that, there is no significant linear relationship between Internet speed and the number of YouTube subscribers. This may be due to the fact that subscriber numbers are influenced by a variety of factors that are not included in the current model.
