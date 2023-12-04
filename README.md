@@ -1,14 +1,14 @@
 # STAT-184-Final-Project.github.io
 ---
-title: STAT 184 Final Project
+Title: STAT 184 Final Project
 
 Authors: Kaitlyn Klumb, Xinyi Bao, Samuel Quinn
 
-date: 2023/12/6
+Date: 2023/12/6
 
 ---
 
-**Background Information:**  
+**Background Information:**
 The primary dataset offers an avenue to analyze and gain valuable insights from the luminaries of the platform, including comprehensive details on top creators' subscriber counts, video views, upload frequency, country of origin, earnings, and more.   
 The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewithana/global-youtube-statistics-2023)
 
@@ -36,7 +36,7 @@ head(GlobalInternet2019)
 **Data Wrangling:**
 
 
-Ranking the popularity of countries, based on the amount of views they recieve. The highest number is the most popular. 
+Ranking the popularity of countries, based on the amount of views they recieve. The highest number is the most popular, which is the United States. 
 ![Rank the popularity of countries](/3.png)
 
 Ranking the internet speed of countries, the highest number is the highest speed. 
@@ -49,10 +49,10 @@ Joining the data tables by the country's video views and internet speed
 
 
 
-Wrangling, E
+Wrangling E
 ![Wangling Global Internet 2019](/6.png)
 
-Wrangling, C
+Wrangling C
 ![Narrow Table](/7.png)
 
 
@@ -67,7 +67,7 @@ EDA for the secondary dataset:
 ![EDA for 2nd dataset](/9.png)
 
 
-**Machine Learning**
+**Machine Learning:**
 
 The clustering and visualization of YouTube channels created between 2010 and 2023 with subscribers above the average value
 
@@ -126,7 +126,7 @@ R-squared = 0.004814. This indicates that the Internet speed in the model explai
 
 Based on the results of this model, we can conclude that, there is no significant linear relationship between Internet speed and the number of YouTube subscribers. This may be due to the fact that subscriber numbers are influenced by a variety of factors that are not included in the current model.
 
-
+<br>
 
 **Conclusion:**
 
