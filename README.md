@@ -59,8 +59,8 @@ internetspeed <-
 internetspeed
 
 ```
-
-
+![Rank the popularity of countries](/3.png)
+![Rank the internet speed of countries](/4.png)
 
 ```{r}
 # joining the data tables by the country's video views and internet speed 
@@ -315,7 +315,7 @@ top_countries_with_channels <- channels_in_top_countries %>%
 top_countries_with_channels
 
 ```
-# "United States" "Spain" "Germany" "France"  
+"United States" "Spain" "Germany" "France"  
  
 ```{r}
 youtube_data_grouped <- GlobalYouTube %>%
