@@ -4,7 +4,7 @@ title: "STAT 184 Final Project"
 
 Authors: Kaitlyn Klumb, Xinyi Bao, Samuel Quinn
 
-date: "`r Sys.Date()`"
+date: 2023/12/6
 
 ---
 
