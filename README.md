@@ -1,6 +1,6 @@
 # STAT-184-Final-Project.github.io
 ---
-title: "STAT 184 Final Project"
+title: STAT 184 Final Project
 
 Authors: Kaitlyn Klumb, Xinyi Bao, Samuel Quinn
 
