@@ -218,6 +218,7 @@ world_map %>%
   theme(legend.position = "none")  
 
 ```
+![Gray World Map](/18.png)
 
 Overlay the top 5 countries with the fastest internet speeds from the GlobalInternet2019 dataset onto your world map
 
