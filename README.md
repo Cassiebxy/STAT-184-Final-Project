@@ -72,7 +72,7 @@ countryspeeds <-
 countryspeeds
 
 ```
-
+![join the countries' video views and internet speed](/5.png)
 
 
 ```{r}
@@ -97,8 +97,8 @@ narrow_table <-
 
 narrow_table
 ```
-
-
+![Wangling Global Internet 2019](/6.png)
+![Narrow Table](/7.png)
 
 **Data EDA:**
 
@@ -112,7 +112,7 @@ GlobalYouTube %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-
+![EDA for 1st dataset](/8.png)
 
 EDA for the secondary dataset:
 ```{r}
@@ -124,9 +124,7 @@ GlobalInternet2019 %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-
-
-
+![EDA for 2nd dataset](/9.png)
 
 
 **Machine Learning**
@@ -161,8 +159,7 @@ channels_above_average %>%
   theme(legend.position = "top") +
   labs(title = "Clustering of YouTube Channels with Above Average Subscribers (2010-2023)")
 ```
-
-
+![Clustering](/10.png)
 
 
 **Data Visualization:**
@@ -170,9 +167,7 @@ channels_above_average %>%
 # Visualizations, A
 mWorldMap(GlobalInternet2019, key="Country", fill="InternetSpeed")
 ```
-
-
-
+![Colered World Map](/11.png)
 
 Visualize YouTube channels created between 2010 and 2023 based on their latitude and longitude
 ```{r}
@@ -190,8 +185,7 @@ filtered_channels %>%
        y = "Latitude")
 
 ```
-
-
+![Geographical Distribution between 2010 and 2023](/12.png)
 
 
 ```{r}
@@ -200,8 +194,7 @@ countryspeeds %>%
   geom_point()+
   aes(colour= Country)
 ```
-
-
+![Country Speed](/13.png)
 
 
 World Map:
@@ -253,8 +246,7 @@ ggplot(data = world_with_speed) +
 
 ```
 
-
-
+![World Map with Top 5 Internet Speed](/14.png)
 
 
 Combine the visualization of the top 5 countries with the fastest internet speeds with the locations of YouTube channels created between 2010 and 2023
@@ -277,8 +269,7 @@ ggplot() +
 
 ```
 
-
-
+![World Map with Top 5 Internet Speed and Youtubers](/15.png)
 
 ```{r}
 if (!require("sf")) install.packages("sf")
@@ -333,8 +324,7 @@ youtube_data_grouped %>%
   coord_flip() 
 
 ```
-
-
+![Comparisons between Views and Subscribers](/16.png)
 
 
 **Linear Regression:**
@@ -353,7 +343,7 @@ summary(model)
 
 ```
 
-
+![Linear Regression Summary](/17.png)
 
 
 **Analysis:**   
