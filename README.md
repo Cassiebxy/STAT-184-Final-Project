@@ -1,13 +1,11 @@
 # STAT-184-Final-Project.github.io
 ---
 title: "STAT 184 Final Project"
+
 Authors: Kaitlyn Klumb, Xinyi Bao, Samuel Quinn
-output:
-  html_document:
-  df_print: paged
-  pdf_document: default
-  html_notebook: default
+
 date: "`r Sys.Date()`"
+
 ---
 
 **Background Information:**  
