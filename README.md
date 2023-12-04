@@ -34,6 +34,7 @@ library(Lock5Data)
 head(GlobalYouTube)
 head(GlobalInternet2019)
 ```
+![GlobalYouTube](/1.png)
 
 **Data Wrangling:**
 
