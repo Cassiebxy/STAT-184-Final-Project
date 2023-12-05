@@ -18,6 +18,7 @@ The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewi
 ***Our Hypothesis:*** Internet speed may play a significant role in making the YouTube channels popular in the world.
 
 ***Challenge Encountered:***
+* Topic selected (combination between primary and secondary data set)
 * Conflicts with GitHub Desktop to collaborate on the code 
 * We did our work on our local laptops, edited the main code on GitHub, and committed the changes. 
 * Increase our efficiency
@@ -60,13 +61,18 @@ Wrangling C
 **Data EDA:**
 
 EDA for the primary dataset:
+This is the basic data explore for the primary data set. This bar graph shows the distribution of the number of subscirbers of YouTube Channels in different countries.
 
 ![EDA for 1st dataset](/8.png)
 
+We can see the United State has the YouTube channel that has the highest subscribers in the world.
+
+<br>
+
 EDA for the secondary dataset:
-
+This is the basic data explore for the second data set. This line graph shows the distribution of the Global Internet speed in 2019.
 ![EDA for 2nd dataset](/9.png)
-
+We can see Swizerland has the highest Internet speed around the world in 2019.
 
 **Machine Learning:**
 
@@ -74,10 +80,11 @@ The clustering and visualization of YouTube channels created between 2010 and 20
 
 ![Clustering](/10.png)
 
+We tried to use k-means to cluster the Youtube channels between 2010 and 2023 with subscirbers above the average value and show in the graph geographically. However, the points on the graph are not 
 
 **Data Visualization:**
 
-Visualize World Map with INternet Speed
+Visualize World Map with Internet Speed
 
 ![Colered World Map](/11.png)
 
