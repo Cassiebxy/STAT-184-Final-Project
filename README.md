@@ -135,7 +135,10 @@ To answer the first question: Where are Youtuber channels most popular in the wo
 
 "United States" "Spain" "Germany" "France"  
 
-For the second question: There is no significant linear relationship between Internet speed and the number of YouTube subscribers.
+
+For the second question: 
+
+There is no significant linear relationship between Internet speed and the number of YouTube subscribers.
 
 
  
