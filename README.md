@@ -96,7 +96,7 @@ Visualize YouTube channels created between 2010 and 2023 based on their latitude
 Visualize Country Speed
 ![Country Speed](/13.png)
 
-Looking at this graph shows which countries have the highest internet speed. 
+This graph shows which countries have the highest internet speed and how that translates with countries with high video views.  
 
 
 **Key Visualization:**
