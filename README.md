@@ -21,7 +21,7 @@ The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewi
 * Topic selected (combination between primary and secondary data set)
 * Conflicts with GitHub Desktop to collaborate on the code 
 * We did our work on our local laptops, edited the main code on GitHub, and committed the changes. 
-* Increase our efficiency
+* Increased our efficiency
 
 
 <br>
@@ -116,6 +116,8 @@ Combine the visualization of the top 5 countries with the fastest internet speed
 Compare the Youtube Views count and subscribers:
 
 ![Comparisons between Views and Subscribers](/16.png)
+
+Comparing views and subscribers allows us to test confirm popularity in channels, that higher viewed videos will correlate with higher subsribed to channels. 
 
 
 
