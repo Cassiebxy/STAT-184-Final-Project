@@ -29,6 +29,9 @@ The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewi
 
 **Data Access:**
 ```{r}
+# Loading primary data
+GlobalYouTube <- read.csv("https://raw.githubusercontent.com/Cassiebxy/STAT-184-Final-Project/main/Global%20YouTube%20Statistics.csv")
+
 head(GlobalYouTube)
 head(GlobalInternet2019)
 ```
@@ -51,10 +54,10 @@ Joining the data tables by the country's video views and internet speed
 
 
 
-Wrangling E
+Use of reduction and/or transformation functions for the dataset
 ![Wangling Global Internet 2019](/6.png)
 
-Wrangling C
+A spread or gather operation for the dataset
 ![Narrow Table](/7.png)
 
 
@@ -80,7 +83,7 @@ The clustering and visualization of YouTube channels created between 2010 and 20
 
 ![Clustering](/10.png)
 
-We tried to use k-means to cluster the Youtube channels between 2010 and 2023 with subscirbers above the average value and show in the graph geographically. However, the points on the graph are not 
+We tried to use k-means to cluster the Youtube channels between 2010 and 2023 with subscirbers above the average value and show in the graph geographically. 
 
 **Data Visualization:**
 
@@ -150,7 +153,7 @@ To answer the first question: Where are Youtuber channels most popular in the wo
 
 For the second question: 
 
-There is no significant linear relationship between Internet speed and the number of YouTube subscribers.
+There is no significant linear relationship between Internet speed and the number of YouTube subscribers. But we need further models to prove this conclusion.
 
 
  
