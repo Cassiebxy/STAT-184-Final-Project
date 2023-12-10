@@ -15,6 +15,7 @@ The primary dataset offers an avenue to analyze and gain valuable insights from 
 The primary dataset come from [here](https://www.kaggle.com/datasets/nelgiriyewithana/global-youtube-statistics-2023)
 
 ***Research Question:*** where are Youtuber channels most popular in the world, and does their internet speed play a role? 
+***Our Hypothesis:*** Internet speed may play a significant role in making the YouTube channels popular in the world.
 
 <br>
 
@@ -329,3 +330,14 @@ The p-value for the Internet speed coefficient is 0.136, which is above common l
 R-squared = 0.004814. This indicates that the Internet speed in the model explains a very low proportion (less than 0.5%) of the variation in the number of YouTube subscribers. In other words, the variation in the number of YouTube subscribers can hardly be explained by Internet speed.
 
 Based on the results of this model, we can conclude that, there is no significant linear relationship between Internet speed and the number of YouTube subscribers. This may be due to the fact that subscriber numbers are influenced by a variety of factors that are not included in the current model.
+
+**Conclusion:**
+
+To answer the first question: Where are Youtuber channels most popular in the world
+
+“United States” “Spain” “Germany” “France”
+
+
+For the second question:
+
+There is no significant linear relationship between Internet speed and the number of YouTube subscribers. But we need further models to prove this conclusion.
